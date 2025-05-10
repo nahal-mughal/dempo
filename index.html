@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram Chat Clone</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #fafafa;
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .chat-container {
+        margin-top: 1rem;
+        width: 400px;
+        height: 700px;
+        border: 1px solid #dbdbdb;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .chat-header {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #dbdbdb;
+        background-color: #fff;
+      }
+
+      .profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .username {
+        margin-left: 12px;
+        font-weight: bold;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 12px;
+        overflow-y: auto;
+        background-color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .message {
+        max-width: 70%;
+        padding: 10px;
+        border-radius: 18px;
+        line-height: 1.4;
+        font-size: 14px;
+        word-wrap: break-word;
+        font-size: 14px;
+      }
+
+      .incoming {
+        background-color: #fff;
+        align-self: flex-start; /* Align left */
+        margin-left: 0;
+      }
+
+      .outgoing {
+        background-color: #dcf8c6;
+        align-self: flex-end; /* Align right */
+        margin-right: 0;
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #dbdbdb;
+        background-color: #fff;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #dbdbdb;
+        border-radius: 20px;
+        outline: none;
+        font-size: 18px;
+      }
+
+      .chat-input button {
+        background-color: transparent;
+        border: none;
+        margin-left: 10px;
+        font-weight: bold;
+        color: #0095f6;
+        cursor: pointer;
+        font-size: 18px;
+      }
+      #heart-container {
+        position: absolute;
+        bottom: 60px; /* Position just above the input */
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        width: 100%;
+        height: calc(
+          100% - 60px
+        ); /* Make hearts fill the area between the messages and input */
+        overflow: hidden; /* Prevent hearts from overflowing out of the container */
+      }
+
+      .heart {
+        position: absolute;
+        bottom: 0;
+        font-size: 24px;
+        animation: floatUp 4s ease-in forwards;
+        opacity: 0;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-600px) scale(1.5);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+          class="profile-pic"
+        />
+        <span class="username">demo</span>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message outgoing">Hey</div>
+        <div class="message incoming">Hi</div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+      <div id="heart-container"></div>
+    </div>
+    <script>
+
+
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+        if (text === "") return;
+
+        const messageBox = document.createElement("div");
+        messageBox.className = "message outgoing";
+        messageBox.textContent = text;
+
+        document.getElementById("chatMessages").appendChild(messageBox);
+        input.value = "";
+
+        if (
+          text.includes("😘") ||
+          text.toLowerCase().includes("i love you".toLowerCase())
+        ) {
+          createHearts();
+        } else if (text.toLowerCase().includes("cool".toLowerCase())) {
+          createSmiles();
+        } else if (text.toLowerCase().includes("you look hot".toLowerCase())) {
+          createFire();
+        } else if (text.toLowerCase().includes("bitch".toLowerCase())) {
+          createBitch();
+        }
+
+        const chat = document.getElementById("chatMessages");
+        chat.scrollTop = chat.scrollHeight;
+      }
+
+      function createHearts() {
+        const heartContainer = document.getElementById("heart-container");
+
+        const emojis = ["❤️", "💖"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createSmiles() {
+        const heartContainer = document.getElementById("heart-container");
+
+        const emojis = ["😎"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+      function createBitch() {
+        const heartContainer = document.getElementById("heart-container");
+
+        const emojis = ["🐶"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createFire() {
+        const heartContainer = document.getElementById("heart-container");
+
+        const emojis = ["🔥", "🥵"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createRandomEmojis(container, emojis) {
+        const numberOfEmojis = 15;
+        for (let i = 0; i < numberOfEmojis; i++) {
+          const emoji = document.createElement("div");
+          emoji.classList.add("heart");
+
+          const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+          emoji.innerHTML = randomEmoji;
+
+          const left = Math.random() * 100;
+          emoji.style.left = `${left}%`;
+
+          const animationDuration = Math.random() * 3 + 3;
+          emoji.style.animationDuration = `${animationDuration}s`;
+
+          container.appendChild(emoji);
+
+          emoji.addEventListener("animationend", () => {
+            emoji.remove();
+          });
+        }
+      }
+      document
+        .getElementById("messageInput")
+        .addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault(); // Prevent default "Enter" action (like creating a new line)
+            sendMessage(); // Send the message
+          }
+        });
+    </script>
+  </body>
+</html>
