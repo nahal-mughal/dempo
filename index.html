@@ -18,6 +18,7 @@
       }
 
       .chat-container {
+        position: relative;
         margin-top: 1rem;
         width: 400px;
         height: 700px;
@@ -32,6 +33,9 @@
       }
 
       .chat-header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
         display: flex;
         align-items: center;
         padding: 12px;
@@ -230,7 +234,6 @@
           text.toLowerCase().includes("meant to be".toLowerCase())
         ) {
           createSoulmate();
-        
         } else if (
           text.toLowerCase().includes("queen".toLowerCase()) ||
           text.toLowerCase().includes("princess".toLowerCase())
@@ -246,61 +249,61 @@
 
       function createMissYou() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["😢", "💔"];
+        const emojis = ["😢", "💔", "😭"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createLove() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["💑", "💞"];
+        const emojis = ["💑", "💞", "❤️"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createHug() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["🤗", "💓"];
+        const emojis = ["🤗", "💓", "🤍"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createKiss() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["💋", "🥰"];
+        const emojis = ["💋", "🥰", "😘"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createBeauty() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["🌸", "😍"];
+        const emojis = ["🌸", "😍", "💐"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createGoodNight() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["🌙", "💤"];
+        const emojis = ["🌙", "💤", "🌜"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createThinkingOfYou() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["💭", "👀"];
+        const emojis = ["💭", "👀", "🤔"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createMine() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["🔒", "❤️"];
+        const emojis = ["🔒", "❤️", "🔑"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createSoulmate() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["🧩", "💫",];
+        const emojis = ["🧩", "💫", "🌟"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createQueen() {
         const heartContainer = document.getElementById("heart-container");
-        const emojis = ["👑", "💅"];
+        const emojis = ["👑", "💅", "💎"];
         createRandomEmojis(heartContainer, emojis);
       }
 
@@ -312,53 +315,83 @@
 
       function createHearts() {
         const heartContainer = document.getElementById("heart-container");
-
-        const emojis = ["❤️", "💖"];
+        const emojis = ["❤️", "💖", "💘"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createSmiles() {
         const heartContainer = document.getElementById("heart-container");
-
-        const emojis = ["😎"];
+        const emojis = ["😎", "😊", "😁"];
         createRandomEmojis(heartContainer, emojis);
       }
+
       function createBitch() {
         const heartContainer = document.getElementById("heart-container");
-
-        const emojis = ["🐶"];
+        const emojis = ["🐶", "🐕", "🐩"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createFire() {
         const heartContainer = document.getElementById("heart-container");
-
-        const emojis = ["🔥", "🥵"];
+        const emojis = ["🔥", "🥵", "💥"];
         createRandomEmojis(heartContainer, emojis);
       }
 
       function createRandomEmojis(container, emojis) {
         const numberOfEmojis = 15;
+        const usedPositions = [];
+
+        function getRandomPosition() {
+          let left, top;
+
+          // Keep generating random positions until a unique one is found
+          do {
+            left = Math.random() * 100;
+            top = Math.random() * 100;
+          } while (
+            usedPositions.some(
+              (pos) =>
+                Math.abs(pos.left - left) < 10 && Math.abs(pos.top - top) < 10
+            )
+          );
+
+          // Store the new position to avoid future overlap
+          usedPositions.push({ left, top });
+
+          return { left, top };
+        }
+
         for (let i = 0; i < numberOfEmojis; i++) {
           const emoji = document.createElement("div");
           emoji.classList.add("heart");
 
+          // Choose a random emoji
           const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
           emoji.innerHTML = randomEmoji;
 
-          const left = Math.random() * 100;
+          // Get a unique random position
+          const { left, top } = getRandomPosition();
           emoji.style.left = `${left}%`;
+          emoji.style.top = `${top}%`;
 
-          const animationDuration = Math.random() * 3 + 3;
+          // Random size for variation
+          const size = Math.random() * 12 + 18; // Random size between 20px and 50px
+          emoji.style.fontSize = `${size}px`;
+
+          // Random animation duration for more variation
+          const animationDuration = Math.random() * 3 + 3; // Between 3 and 6 seconds
           emoji.style.animationDuration = `${animationDuration}s`;
 
+          // Append emoji to container
           container.appendChild(emoji);
 
+          // Add animation end event listener to remove the emoji
           emoji.addEventListener("animationend", () => {
             emoji.remove();
           });
         }
       }
+
       document
         .getElementById("messageInput")
         .addEventListener("keydown", function (event) {
