@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instagram Chat Clone</title>
+    <title>Chat</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       body {
@@ -61,7 +61,7 @@
       }
 
       .message {
-        max-width: 70%;
+        max-width: 100%;
         padding: 10px;
         border-radius: 18px;
         line-height: 1.4;
@@ -162,8 +162,6 @@
       <div id="heart-container"></div>
     </div>
     <script>
-
-
       function sendMessage() {
         const input = document.getElementById("messageInput");
         const text = input.value.trim();
@@ -187,10 +185,129 @@
           createFire();
         } else if (text.toLowerCase().includes("bitch".toLowerCase())) {
           createBitch();
+        } else if (
+          text.toLowerCase().includes("miss you".toLowerCase()) ||
+          text.toLowerCase().includes("missing you".toLowerCase())
+        ) {
+          createMissYou();
+        } else if (
+          text.toLowerCase().includes("my baby".toLowerCase()) ||
+          text.toLowerCase().includes("my love".toLowerCase())
+        ) {
+          createLove();
+        } else if (
+          text.toLowerCase().includes("hug me".toLowerCase()) ||
+          text.toLowerCase().includes("need a hug".toLowerCase())
+        ) {
+          createHug();
+        } else if (
+          text.toLowerCase().includes("kiss me".toLowerCase()) ||
+          text.toLowerCase().includes("muah".toLowerCase())
+        ) {
+          createKiss();
+        } else if (
+          text.toLowerCase().includes("beautiful".toLowerCase()) ||
+          text.toLowerCase().includes("pretty".toLowerCase())
+        ) {
+          createBeauty();
+        } else if (
+          text.toLowerCase().includes("good night".toLowerCase()) ||
+          text.toLowerCase().includes("sweet dreams".toLowerCase())
+        ) {
+          createGoodNight();
+        } else if (
+          text.toLowerCase().includes("thinking of you".toLowerCase()) ||
+          text.toLowerCase().includes("always you".toLowerCase())
+        ) {
+          createThinkingOfYou();
+        } else if (
+          text.toLowerCase().includes("you’re mine".toLowerCase()) ||
+          text.toLowerCase().includes("belong to me".toLowerCase())
+        ) {
+          createMine();
+        } else if (
+          text.toLowerCase().includes("soulmate".toLowerCase()) ||
+          text.toLowerCase().includes("meant to be".toLowerCase())
+        ) {
+          createSoulmate();
+        
+        } else if (
+          text.toLowerCase().includes("queen".toLowerCase()) ||
+          text.toLowerCase().includes("princess".toLowerCase())
+        ) {
+          createQueen();
+        } else if (text.toLowerCase().includes("i’m yours".toLowerCase())) {
+          createImYours();
         }
 
         const chat = document.getElementById("chatMessages");
         chat.scrollTop = chat.scrollHeight;
+      }
+
+      function createMissYou() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["😢", "💔"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createLove() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["💑", "💞"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createHug() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🤗", "💓"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createKiss() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["💋", "🥰"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createBeauty() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🌸", "😍"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createGoodNight() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🌙", "💤"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createThinkingOfYou() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["💭", "👀"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createMine() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🔒", "❤️"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createSoulmate() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🧩", "💫",];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createQueen() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["👑", "💅"];
+        createRandomEmojis(heartContainer, emojis);
+      }
+
+      function createImYours() {
+        const heartContainer = document.getElementById("heart-container");
+        const emojis = ["🔐", "❤️", "🙇‍♂️"];
+        createRandomEmojis(heartContainer, emojis);
       }
 
       function createHearts() {
